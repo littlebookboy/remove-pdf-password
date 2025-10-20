@@ -17,7 +17,7 @@ pip install -r requirements.txt
 ```
 
 ### 2. 環境變數設定
-專案已包含 `.env` 設定檔：
+需建立 `.env` 設定檔：
 ```env
 PDF_PASSWORD=pw
 ```
