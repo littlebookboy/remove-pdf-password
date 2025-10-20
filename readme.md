@@ -46,10 +46,10 @@ python index.py "~/Desktop/target file.pdf"
 ## 📁 專案結構
 ```
 remove_pdf_password/
-├── 📄 index.py              # 主程式
-├── 📝 requirements.txt      # 相依套件清單
-├── 📖 readme               # 使用說明
-├── 🔒 .env                 # 環境變數 (不上傳)
-├── 🚫 .gitignore           # Git 忽略清單
-└── 📂 output/        # 輸出目錄 (不上傳)
+├── 📄 index.py 
+├── 📝 requirements.txt 
+├── 📖 readme.md
+├── 🔒 .env 
+├── 🚫 .gitignore  
+└── 📂 output/
 ```
