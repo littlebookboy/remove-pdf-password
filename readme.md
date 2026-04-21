@@ -24,6 +24,7 @@ PDF_PASSWORD=pw
 
 ### 3. 執行方式
 
+#### CLI 模式
 ```bash
 python index.py "被加密的 pdf 檔案絕對路徑 (包含檔案名)"
 
@@ -33,6 +34,12 @@ python index.py "/Users/user/Downloads/target.pdf"
 # 🗂 含空格檔案路徑
 python index.py "~/Desktop/target file.pdf"
 ```
+
+#### GUI 模式
+```bash
+python gui.py
+```
+開啟圖形介面，點擊「選擇 PDF 檔案」→「移除密碼」即可。
 
 ### 📤 輸出範例
 | 輸入檔案 | 輸出位置 |
@@ -46,7 +53,8 @@ python index.py "~/Desktop/target file.pdf"
 ## 📁 專案結構
 ```
 remove_pdf_password/
-├── 📄 index.py 
+├── 📄 index.py        # CLI 模式
+├── 🖥 gui.py          # GUI 模式
 ├── 📝 requirements.txt 
 ├── 📖 readme.md
 ├── 🔒 .env 
