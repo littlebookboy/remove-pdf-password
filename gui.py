@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import tkinter as tk
 from tkinter import filedialog
+from tkinterdnd2 import DND_FILES, TkinterDnD
 import os
+import sys
 from pathlib import Path
 from dotenv import load_dotenv
 import pymupdf as fitz
@@ -36,12 +38,10 @@ def remove_pdf_password(input_pdf, output_pdf, password):
 
 
 def generate_output_path(input_pdf):
-    """產生輸出檔案路徑"""
+    """產生輸出檔案路徑，與輸入檔案同目錄"""
     input_path = Path(input_pdf)
-    script_dir = Path(__file__).parent
-    output_dir = script_dir / "output"
     output_filename = f"{input_path.stem}-unlock{input_path.suffix}"
-    return str(output_dir / output_filename)
+    return str(input_path.parent / output_filename)
 
 
 class App:
@@ -59,6 +59,20 @@ class App:
 
         # 標題
         tk.Label(frame, text="PDF 密碼移除工具", font=("", 16, "bold")).pack(pady=(0, 15))
+
+        # 拖放區域
+        self.drop_frame = tk.Label(
+            frame,
+            text="將 PDF 拖放到這裡\n或點擊下方按鈕選擇檔案",
+            relief="groove",
+            width=40,
+            height=4,
+            bg="#f0f0f0",
+            fg="gray",
+        )
+        self.drop_frame.pack(pady=(0, 10))
+        self.drop_frame.drop_target_register(DND_FILES)
+        self.drop_frame.dnd_bind("<<Drop>>", self.on_drop)
 
         # 選擇檔案按鈕
         tk.Button(frame, text="選擇 PDF 檔案", command=self.choose_file, width=20).pack()
@@ -81,14 +95,24 @@ class App:
         if not self.password:
             self.set_status("請在 .env 檔案中設定 PDF_PASSWORD", "red")
 
+    def on_drop(self, event):
+        path = event.data.strip("{}")
+        if path.lower().endswith(".pdf"):
+            self.select_file(path)
+        else:
+            self.set_status("請拖放 PDF 檔案", "red")
+
+    def select_file(self, path):
+        self.selected_file = path
+        self.file_label.config(text=path, fg="black")
+        if self.password:
+            self.run_btn.config(state=tk.NORMAL)
+        self.set_status("", "black")
+
     def choose_file(self):
         path = filedialog.askopenfilename(filetypes=[("PDF 檔案", "*.pdf")])
         if path:
-            self.selected_file = path
-            self.file_label.config(text=path, fg="black")
-            if self.password:
-                self.run_btn.config(state=tk.NORMAL)
-            self.set_status("", "black")
+            self.select_file(path)
 
     def run(self):
         if not self.selected_file:
@@ -114,6 +138,13 @@ class App:
 
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    App(root)
+    root = TkinterDnD.Tk()
+    app = App(root)
+
+    # 支援命令列傳入檔案路徑
+    if len(sys.argv) > 1:
+        path = sys.argv[1]
+        if os.path.isfile(path) and path.lower().endswith(".pdf"):
+            app.select_file(path)
+
     root.mainloop()

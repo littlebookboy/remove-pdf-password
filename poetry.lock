@@ -34,7 +34,19 @@ files = [
 [package.extras]
 cli = ["click (>=5.0)"]
 
+[[package]]
+name = "tkinterdnd2"
+version = "0.4.3"
+description = "TkinterDnD2 is a python wrapper for George Petasis'' tkDnD Tk extension version 2"
+optional = false
+python-versions = ">=3.6"
+groups = ["main"]
+files = [
+    {file = "tkinterdnd2-0.4.3-py3-none-any.whl", hash = "sha256:8804f5d2e2a99713ec93e85384397fec6bf66fdf2065e3750938d55018971c4a"},
+    {file = "tkinterdnd2-0.4.3.tar.gz", hash = "sha256:03a932a11b42ab139c4552b414aa10ee8a087b8386b52baca8c62939760c2ef2"},
+]
+
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.12"
-content-hash = "a3ffd6d06d026059a223b20b738889738c786f4787bdc34006917739babb6fae"
+content-hash = "4a27d5ebdf5cfd069b24838a7c68424c2b08cb06a5edd389609e96dd085c55e8"
